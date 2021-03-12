@@ -17,11 +17,10 @@ function App() {
       .then((result) => {
         setFrase(result.data.content);
         setAuthor(result.data.author);
-        console.log(result);
       })
       .catch((err) => {
         setFrase(
-          "É das pessoas que menos esperamos que surjem as coisas mais incríveis"
+          "É das pessoas que menos esperamos que surgem as coisas mais incríveis"
         );
         console.error(err);
       });
