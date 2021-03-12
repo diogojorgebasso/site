@@ -1,5 +1,5 @@
 {
-  "name": "magicAPI",
+  "name": "site",
   "version": "1.1.0",
   "private": true,
   "repository": {
@@ -51,8 +51,7 @@
   "bugs": {
     "url": "https://github.com/diogojorgebasso/Programmers-to-job/issues"
   },
-  "homepage": "https://github.com/diogojorgebasso/Programmers-to-job#readme",
-  "main": "index.js",
+  "main": "public/index.html",
   "keywords": [],
   "author": "Diogo Basso",
   "license": "Apache 2"

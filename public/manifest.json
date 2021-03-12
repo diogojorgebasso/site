@@ -1,6 +1,7 @@
 {
   "short_name": "Api mágica",
   "name": "Uma interface com APIs para se divertir",
+  "start_url": ".",
   "icons": [
     {
       "src": "favicon.ico",
@@ -33,7 +34,6 @@
       "sizes": "32x32"
     }
   ],
-  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

@@ -38,10 +38,13 @@ function App() {
 
   const handlePhrase = (e) => {
     e.preventDefault();
-    extraPhrases.post("", { text: Personagem }).then((res) => {
-      setAge(res.data.age);
-      console.log(res);
-    });
+    extraPhrases
+      .post("/", { text: Personagem })
+      .then((res) => {
+        setAge(res.data.age);
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
