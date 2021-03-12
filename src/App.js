@@ -1,5 +1,5 @@
 import "./App.css";
-import { frase, mercadoFin, nameAge, extraPhrases } from "./services/api";
+import { frase, nameAge, extraPhrases } from "./services/api";
 import { useEffect, useState } from "react";
 import Graph from "./services/Graph";
 
