@@ -1,52 +1,30 @@
-const functions = require('firebase-functions');
+//In ordder for firebase work.
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
 
-const fetch = require("node-fetch"),
+const enviando = require("node-fetch"),
   slugify = require("slugify"),
   cheerio = require("cheerio"),
   iconv = require("iconv-lite");
+cors = require("cors")({ origin: true });
 
-const baseUrl = "https://www.pensador.com/";
-
-module.exports = async (options) => {
-  if (options === undefined || options.term === undefined) {
-    _throw("A search term must be defined");
-  }
-
-  const searchTerm = slugify(`frases de ${options.term}`, {
+const scrapePhrases = async (personagem) => {
+  const baseUrl = "https://www.pensador.com/";
+  const searchTerm = slugify(`frases de ${personagem}`, {
     replacement: "_",
     remove: /[*+~.()'"!:@]/g,
     lower: true,
   });
 
-  let keepGoing = true;
-  let current = 1;
+  let contentPage = await fetchPage(searchTerm);
+  let result = await extract(contentPage);
 
-  let phrases = [];
-
-  while (keepGoing) {
-    let contentPage = await fetchPage(searchTerm, current);
-    let result = await extract(contentPage);
-
-    phrases.push(...result.phrases);
-
-    if (options.max !== undefined && phrases.length > options.max) {
-      phrases = phrases.slice(0, options.max);
-
-      keepGoing = false;
-    }
-
-    if (result.next === false) {
-      keepGoing = false;
-    }
-
-    current = current + 1;
-  }
-
-  return { total: phrases.length, searchTerm, phrases };
+  return result.phrases;
 
   async function fetchPage(searchTerm, current = 1) {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}/${searchTerm}/${current}`)
+      enviando(`${baseUrl}/${searchTerm}/${current}`)
         .then((res) => res.arrayBuffer())
         .then((arrayBuffer) =>
           iconv.decode(Buffer.from(arrayBuffer), "utf-8").toString()
@@ -83,6 +61,10 @@ module.exports = async (options) => {
   }
 };
 
-function _throw(m) {
-  throw m;
-}
+exports.frases = functions.https.onRequest((request, response) => {
+  cors(request, response, async () => {
+    const body = JSON.parse(request.body);
+    const frasesDoPensador = await scrapePhrases(body.text);
+    response.send(frasesDoPensador);
+  });
+});
