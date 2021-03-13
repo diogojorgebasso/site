@@ -1,13 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html itemscope itemtype="http://schema.org/Person" lang="pt-BR">
   <head>
     <meta charset="utf-8" />
+    <meta content="logo512.png" itemprop="image" />
+    <link rel="canonical" href="https://diogobasso-site.web.app" />
+
+    <meta property="og:title" content="API m&aacute;gica em Blog do Diogo" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://diogobasso-site.web.app/" />
+    <meta
+      property="og:image"
+      content="https://diogobasso-site.web.app/logo512.png"
+    />
+    <meta
+      property="og:description"
+      content="Aplicação real com m&aacute;ltiplas API1s para desenvolveres"
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@diogobasso" />
+    <meta name="twitter:title" content="API m&aacute;gica em Blog do Diogo" />
+    <meta
+      name="twitter:description"
+      content="Aplicação real com m&aacute;ltiplas API1s para desenvolveres"
+    />
+    <meta
+      name="twitter:image"
+      content="https://diogobasso-site.web.app/logo512.png"
+    />
+
     <link rel="icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
-      name="API mágica para subdomínio"
-      content="Aplicação real com múltiplas APIs para desenvolveres"
+      name="API m&aacute;gica em Blog do Diogo"
+      content="Aplicação real com m&aacute;ltiplas API1s para desenvolveres"
     />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <!--
@@ -20,5 +47,21 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("../src/sw.js").then(
+            function (registration) {
+              // Registration was successful
+              console.log("ServiceWorker registration successful");
+            },
+            function (err) {
+              // Registration failed
+              console.log("ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
+    </script>
   </body>
 </html>

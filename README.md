@@ -7,3 +7,4 @@
 Next steps:
 
 - Make an API request to search, based on the IP, a country for enhancing the quality in agyfing
+- Make 404 error page

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const frase = axios.create({
+const fraseInicial = axios.create({
   baseURL: "http://api.quotable.io/random",
 });
 
@@ -15,13 +15,13 @@ const mercadoFin = axios.create({
   baseURL: "https://mercadobitcoin.net/api/BTC/trades",
 });
 
-const extraPhrases = axios.create({
+const newPhrase = axios.create({
   //baseURL: "https://us-central1-diogobasso-site.cloudfunctions.net/frases",
   baseURL: "http://localhost:5001/diogobasso-site/us-central1/frases", //for local env
 });
 
-const location = axios.create({
+const locationClient = axios.create({
   baseURL: "https://ipapi.co/country_code/",
 });
 
-export { frase, nameAge, mercadoFin, extraPhrases, location };
+export { fraseInicial, nameAge, mercadoFin, newPhrase, locationClient };
