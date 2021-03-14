@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { nameAge, locationClient } from "../../services/api";
 
@@ -19,7 +18,7 @@ export default function Name() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    nameAge(Name, (Localizacao = ""))
+    nameAge(Name, Localizacao)
       .get()
       .then((res) => {
         setAge(res.data.age);
@@ -32,23 +31,19 @@ export default function Name() {
       <div>
         <label htmlFor="name">Qual o seu nome:</label>
         <input
-          class="searchInput"
           id="name"
-          maxlength="2048"
-          name="q"
+          maxLength="2048"
           type="text"
           aria-autocomplete="both"
           aria-haspopup="false"
-          autocapitalize="off"
-          autocomplete="off"
-          autocorrect="off"
-          autofocus
-          role="combobox"
-          spellcheck="false"
+          autoCapitalize="off"
+          autoComplete="off"
+          autoCorrect="off"
+          autoFocus
+          spellCheck="false"
           title="Pesquisar"
-          value
+          aria-label="Pesquisar"
           onChange={(event) => setName(event.target.value)}
-          aria-label="Seu nome:"
         />
         <button onClick={handleSubmit}>Enviar</button>
       </div>

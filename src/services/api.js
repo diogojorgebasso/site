@@ -16,8 +16,8 @@ const mercadoFin = axios.create({
 });
 
 const newPhrase = axios.create({
-  //baseURL: "https://us-central1-diogobasso-site.cloudfunctions.net/frases",
-  baseURL: "http://localhost:5001/diogobasso-site/us-central1/frases", //for local env
+  baseURL: "https://us-central1-diogobasso-site.cloudfunctions.net/frases",
+  //baseURL: "http://localhost:5001/diogobasso-site/us-central1/frases", //for local env
 });
 
 const locationClient = axios.create({

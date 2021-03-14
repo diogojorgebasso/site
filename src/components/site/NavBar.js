@@ -11,7 +11,6 @@ export default function NavBar() {
         <img className="headerLogo" src={logo} alt="Diogo Logo" />
       </Link>
       <div className="headerLocation">
-        <LocationOnIcon />
         <div className="headerOption">
           <span className="HeaderTextUp">Olá!</span>
           <span className="HeaderTextDown">Selecione aqui</span>
@@ -19,12 +18,12 @@ export default function NavBar() {
       </div>
       <div className="headerNav">
         <Link to={!currentUser.email && "/login"}>
-          <div onClick={handleSign} className="headerOption">
+          <div className="headerOption">
             <span className="HeaderTextUp">
-              Hello {!user ? "Guest" : user.email}
+              Hello {!currentUser ? "Guest" : currentUser.email}
             </span>
             <span className="HeaderTextDown">
-              {user ? "Sign Out" : "Sign In"}
+              {currentUser ? "Sign Out" : "Sign In"}
             </span>
           </div>
         </Link>
@@ -32,22 +31,12 @@ export default function NavBar() {
           <span className="HeaderTextUp">Return</span>
           <span className="HeaderTextDown">&amp; orders</span>
         </div>
-        <Link to="/orders">
-          <div className="headerOption">
-            <span className="HeaderTextUp">Your</span>
-            <span className="HeaderTextDown">Prime</span>
-          </div>
-        </Link>
         <Link to="/checkout">
           <div className="headerOptionBasket">
-            <AddShoppingCartIcon />
-            <span className="HeaderTextDown HeaderBasketCart">
-              {basket?.length}
-            </span>
+            <span className="HeaderTextDown HeaderBasketCart"></span>
           </div>
         </Link>
       </div>
-      <p>↷Check More</p>
     </div>
   );
 }

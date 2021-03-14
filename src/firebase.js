@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/analytics";
+import "firebase/remote-config";
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyDveLdtFIYdPbbSltuUNgC9ED2dGIfu_o8",

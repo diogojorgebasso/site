@@ -1,10 +1,9 @@
-import AuthProvider from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import FlagsProvider from "./contexts/FlagsProvider";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/auth/PrivateRoute";
 import Dashboard from "./components/site/Dashboard";
 import Signup from "./components/auth/Signup";
-
 import Login from "./components/auth/Login";
 import UpdateProfile from "./components/auth/UpdateProfile";
 import ForgotPassword from "./components/auth/ForgotPassword";
@@ -14,9 +13,11 @@ export default function App() {
     <div className="App">
       <Router>
         <AuthProvider>
+          {" "}
+          {/* Insert here the promotions in remote config*/}
           <FlagsProvider
             defaults={{
-              someAwesomeFeatureEnabled: false,
+              someAwesomeFeatureEnabled: true,
             }}
           >
             <Switch>

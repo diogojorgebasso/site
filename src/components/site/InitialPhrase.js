@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { fraseInicial } from "../../services/api";
 import styled from "styled-components";
 
-const Frase = styled.h1`
+const FraseStyle = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: palevioletred;
@@ -31,9 +31,9 @@ export default function InitialPhrase() {
 
   return (
     <div>
-      <Frase>
+      <FraseStyle>
         <q>{Frase}</q>
-      </Frase>
+      </FraseStyle>
       <cite>{Author}</cite>
     </div>
   );

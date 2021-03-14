@@ -9,7 +9,15 @@ export default function Graph() {
 
   useEffect(() => {
     mercadoFin
-      .get()
+      .get("", {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Access-Control-Allow-Origin": "https://diogobasso-site.web.app", //CHECKME: in prod. should work
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Max-Age": 86400,
+        },
+      })
       .then((result) => {
         setData({ x: result.date, y: result.amount });
         SetLoading(true);

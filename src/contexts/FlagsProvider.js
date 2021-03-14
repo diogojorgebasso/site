@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import semverSatisfies from "semver/functions/satisfies";
-import { firebase } from "./firebase";
+import { remoteConfig } from "../firebase";
 
 const FlagsContext = React.createContext({});
-const remoteConfig = firebase.remoteConfig();
 
 // For development only
 remoteConfig.settings = {
@@ -39,6 +38,7 @@ const FlagsProvider = ({ defaults, children }) => {
         setFlags(newFlags);
       })
       .catch((error) => console.error(error));
+    /* eslint-disable-next-line */
   }, []);
 
   return (

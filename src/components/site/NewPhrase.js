@@ -3,52 +3,53 @@ import { useState } from "react";
 import { newPhrase } from "../../services/api";
 
 export default function NewPhrase() {
-  const [NewChoicePhrase, setNewChoicePhrase] = useState();
+  const [NewChoicePhrase, setNewChoicePhrase] = useState([]);
   const [Personagem, setPersonagem] = useState();
 
   const handlePhrase = (e) => {
     e.preventDefault();
     newPhrase
-      .post("/", { text: Personagem })
+      .post(
+        "/",
+        { text: Personagem },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "https://diogobasso-site.web.app",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
-        let frases = [];
-        res.data.forEach((frase) => frases.push(frase));
-
-        setNewChoicePhrase(frases);
+        setNewChoicePhrase(res.data);
       })
       .catch((err) => console.error(err));
   };
-
+  // eslint-disable-role-has-required-aria-props
   return (
     <div>
       <label htmlFor="fraseExtra">Quem você admira?</label>
-
       <input
-        class="searchInput"
-        id="name"
-        maxlength="2048"
+        id="fraseExtra"
+        maxLength="2048"
         name="q"
         type="text"
         aria-autocomplete="both"
         aria-haspopup="false"
-        autocapitalize="off"
-        autocomplete="off"
-        autocorrect="off"
-        autofocus
-        role="combobox"
-        spellcheck="false"
+        autoCapitalize="off"
+        autoComplete="off"
+        autoCorrect="off"
+        autoFocus
+        spellCheck="false"
         title="Pesquisar"
-        value
         onChange={(event) => setPersonagem(event.target.value)}
         aria-label="Pesquisar"
       />
 
-      <div>
-        {NewChoicePhrase.map((i, e) => (
-          <p key={i}>{e}</p>
+      <ul>
+        {NewChoicePhrase?.map((dum, i) => (
+          <li key={i}>{dum.text}</li>
         ))}
-      </div>
+      </ul>
       <button onClick={handlePhrase}>Enviar</button>
     </div>
   );
