@@ -1,5 +1,5 @@
 {
-  "name": "magicAPI",
+  "name": "site",
   "version": "1.1.0",
   "private": true,
   "repository": {
@@ -7,16 +7,20 @@
     "url": "git+https://github.com/diogojorgebasso/Programmers-to-job.git"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "firebase": "^8.3.0",
     "firebase-admin": "^9.5.0",
     "firebase-functions": "^3.13.2",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-vis": "^1.11.7",
+    "semver": "^7.3.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -51,9 +55,8 @@
   "bugs": {
     "url": "https://github.com/diogojorgebasso/Programmers-to-job/issues"
   },
-  "homepage": "https://github.com/diogojorgebasso/Programmers-to-job#readme",
-  "main": "index.js",
+  "main": "public/index.html",
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Diogo Basso",
+  "license": "Apache 2"
 }

@@ -1,17 +1,15 @@
-//In ordder for firebase work.
+//In order for firebase work.
 const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-admin.initializeApp();
 
-const enviando = require("node-fetch"),
+const fetch = require("node-fetch"),
   slugify = require("slugify"),
   cheerio = require("cheerio"),
-  iconv = require("iconv-lite");
-cors = require("cors")({ origin: true });
+  iconv = require("iconv-lite"),
+  cors = require("cors")({ origin: true });
 
 const scrapePhrases = async (personagem) => {
   const baseUrl = "https://www.pensador.com/";
-  const searchTerm = slugify(`frases de ${personagem}`, {
+  const searchTerm = slugify(personagem, {
     replacement: "_",
     remove: /[*+~.()'"!:@]/g,
     lower: true,
@@ -20,11 +18,11 @@ const scrapePhrases = async (personagem) => {
   let contentPage = await fetchPage(searchTerm);
   let result = await extract(contentPage);
 
-  return result.phrases;
+  return result.phrases.splice(0, 3);
 
-  async function fetchPage(searchTerm, current = 1) {
+  async function fetchPage(searchTerm) {
     return new Promise((resolve, reject) => {
-      enviando(`${baseUrl}/${searchTerm}/${current}`)
+      fetch(`${baseUrl}/${searchTerm}`)
         .then((res) => res.arrayBuffer())
         .then((arrayBuffer) =>
           iconv.decode(Buffer.from(arrayBuffer), "utf-8").toString()
@@ -37,23 +35,18 @@ const scrapePhrases = async (personagem) => {
   async function extract(htmlContent) {
     return new Promise((resolve, reject) => {
       try {
-        const phrases = [];
+        let phrases = [];
         const $ = cheerio.load(htmlContent);
         $(".thought-card").each(function (i, e) {
           phrases.push({
             author: $(this).find("a").first().text(),
             text: $(this).find("p").first().text().replace(/\n/g, ""),
           });
-        });
-
-        let next = false;
-        $("#paginacao").each(function (i, e) {
-          if ($(this).find(".nav").last().text().includes("xima")) {
-            next = true;
+          if (i === 3) {
+            return false;
           }
         });
-
-        resolve({ phrases, next });
+        resolve({ phrases });
       } catch (err) {
         reject(err);
       }
@@ -63,7 +56,7 @@ const scrapePhrases = async (personagem) => {
 
 exports.frases = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
-    const body = JSON.parse(request.body);
+    const body = request.body;
     const frasesDoPensador = await scrapePhrases(body.text);
     response.send(frasesDoPensador);
   });

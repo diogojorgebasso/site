@@ -1,81 +1,43 @@
-import "./App.css";
-import { frase, nameAge, extraPhrases } from "./services/api";
-import { useEffect, useState } from "react";
-import Graph from "./services/Graph";
+import { AuthProvider } from "./contexts/AuthContext";
+import FlagsProvider from "./contexts/FlagsProvider";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+/*auth*/
+import PrivateRoute from "./components/auth/PrivateRoute";
+import Signup from "./components/auth/Signup";
+import Login from "./components/auth/Login";
+import UpdateProfile from "./components/auth/UpdateProfile";
+import Profile from "./components/auth/Profile";
 
-function App() {
-  const [Frase, setFrase] = useState();
-  const [author, setAuthor] = useState();
-  const [Name, setName] = useState("");
-  const [Age, setAge] = useState();
-  const [Personagem, setPersonagem] = useState();
+import ForgotPassword from "./components/auth/ForgotPassword";
+/*site*/
+import Dashboard from "./components/site/Dashboard";
+import Contato from "./components/site/Contato";
 
-  // Get the initial random phrase
-  useEffect(() => {
-    frase
-      .get()
-      .then((result) => {
-        setFrase(result.data.content);
-        setAuthor(result.data.author);
-      })
-      .catch((err) => {
-        setFrase(
-          "É das pessoas que menos esperamos que surgem as coisas mais incríveis"
-        );
-        console.error(err);
-      });
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    nameAge(Name)
-      .get()
-      .then((res) => {
-        setAge(res.data.age);
-        console.log(res);
-      });
-  };
-
-  const handlePhrase = (e) => {
-    e.preventDefault();
-    extraPhrases(Personagem)
-      .get()
-      .then((res) => {
-        setAge(res.data.age);
-        console.log(res);
-      });
-  };
-
+export default function App() {
   return (
     <div className="App">
-      <nav></nav>
-      <div className="phrase_init">
-        <h3>"{Frase}"</h3>
-        <h4>{author}</h4>
-        <p>A sua idade é:{Age}</p>
-        <p>{Name}</p>
-        <Graph></Graph>
-        <p>{Personagem}</p>
-      </div>
-      <div>
-        <label htmlFor="name">Qual o seu nome:</label>
-        <input
-          id="name"
-          type="text"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <button onClick={handleSubmit}>Enviar</button>
-      </div>
+      <Router>
+        <AuthProvider>
+          {" "}
+          {/* Insert here the promotions in remote config*/}
+          <FlagsProvider
+            defaults={{
+              someAwesomeFeatureEnabled: true,
+            }}
+          >
+            <Switch>
+              <PrivateRoute exact path="/" component={Dashboard} />
+              <PrivateRoute path="/update-profile" component={UpdateProfile} />
+              <Route path="/contato" component={Contato} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/perfil" component={Profile} />
 
-      <label htmlFor="fraseExtra">Quem você admira?</label>
-      <input
-        id="fraseExtra"
-        type="text"
-        onChange={(event) => setPersonagem(event.target.value)}
-      />
-      <button onClick={handlePhrase}>Enviar</button>
+              <Route path="/forgot-password" component={ForgotPassword} />
+            </Switch>
+          </FlagsProvider>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }
-
-export default App;

@@ -1,19 +1,37 @@
 import axios from "axios";
 
-const frase = axios.create({
+const fraseInicial = axios.create({
   baseURL: "http://api.quotable.io/random",
 });
 
-function nameAge(name) {
+function nameAge(name, location) {
+  console.log(location);
   return axios.create({
-    baseURL: `https://api.agify.io/?name=${name}`,
+    baseURL: `https://api.agify.io/?name=${name}&country_id=${location}`,
   });
 }
+
 const mercadoFin = axios.create({
   baseURL: "https://mercadobitcoin.net/api/BTC/trades",
 });
 
-const extraPhrases = axios.create({
-  baseURL: "localhost:4000/functions", //for local env
+const newPhrase = axios.create({
+  baseURL: "https://us-central1-diogobasso-site.cloudfunctions.net/frases",
+  //baseURL: "http://localhost:5001/diogobasso-site/us-central1/frases", //for local env
 });
-export { frase, nameAge, mercadoFin, extraPhrases };
+
+const locationClient = axios.create({
+  baseURL: "https://ipapi.co/country_code/",
+});
+const RocketNews = axios.create({
+  baseURL: "https://spaceflightnewsapi.net/api/v2/articles?_limit=4",
+});
+
+export {
+  fraseInicial,
+  RocketNews,
+  nameAge,
+  mercadoFin,
+  newPhrase,
+  locationClient,
+};
