@@ -17,12 +17,18 @@ const app = firebase.initializeApp({
 });
 // Initialize Firebase
 export const analytics = firebase.analytics(); //Done!
+
 export const auth = app.auth();
+
 firebase.performance(); //Done!
+
 export const remoteConfig = firebase.remoteConfig();
+
 const firestore = app.firestore();
+
 export const database = {
   users: firestore.collection("users"),
   getTime: firebase.firestore.FieldValue.serverTimestamp,
 };
+
 export default app;

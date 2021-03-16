@@ -8,7 +8,7 @@ function nameAge(name, location) {
   console.log(location);
   return axios.create({
     baseURL: `https://api.agify.io/?name=${name}${
-      typeof location !== undefined ? "&country_id=" + location : ""
+      location && "&country_id=" + location
     }`,
   });
 }
@@ -25,6 +25,7 @@ const newPhrase = axios.create({
 const locationClient = axios.create({
   baseURL: "https://ipapi.co/country_code/",
 });
+
 const RocketNews = axios.create({
   baseURL: "https://spaceflightnewsapi.net/api/v2/articles?_limit=4",
 });

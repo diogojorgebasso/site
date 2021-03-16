@@ -11,19 +11,20 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   function signup(email, password, name) {
-    const user = auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(analytics.logEvent("signUp", { method: "EmailAndPassword" }))
-      .then(async (value) => {
-        //criando o usuário no database
-        await database.users.doc(value.user.uid).set({
-          email: value.user.email,
-          password: value.user.password,
-          displayName: name,
-          createdAt: database.getTime(),
-          pro: false,
-        });
+    const user = auth.createUserWithEmailAndPassword(email, password);
+
+    const createLogDB = async (value) => {
+      //criando o usuário no database
+      await database.users.doc(value.user.uid).set({
+        email: value.user.email,
+        password: value.user.password,
+        displayName: name,
+        createdAt: database.getTime(),
+        pro: false,
       });
+      analytics.logEvent("signUp", { method: "EmailAndPassword" });
+    };
+    createLogDB();
     return user;
   }
 
@@ -33,17 +34,14 @@ export function AuthProvider({ children }) {
       .signInWithEmailAndPassword(email, password)
       .then(async (value) => {
         //TESTME: add to array
-        await database.user
-          .doc(value.user.uid)
-          .collection("lastLogin")
-          .doc()
-          .set({
-            ip: "00000",
-            city: "Test",
-            userAgent: "Mozilla",
-            createdAt: "time now",
-          });
-      });
+        database.user.doc(value.user.uid).collection("lastLogin").doc().set({
+          ip: "00000",
+          city: "Test",
+          userAgent: "Mozilla",
+          createdAt: "time now",
+        });
+      })
+      .catch((err) => console.error(err));
   }
 
   function logout() {

@@ -26,7 +26,7 @@ export default function Signup() {
       );
       history.push("/");
     } catch {
-      setError("Failed to create an account");
+      setError("Problema em fazer o cadastro.");
     }
 
     setLoading(false);

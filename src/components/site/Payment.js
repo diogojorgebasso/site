@@ -5,7 +5,7 @@ import { database } from "../../firebase";
 import CurrencyFormat from "react-currency-format";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { paymentRequest } from "../../services/Payment";
+import { instance } from "../../services/Payment";
 
 export default function Payment() {
   const [clientSecret, setClientSecret] = useState(true);
@@ -51,7 +51,10 @@ export default function Payment() {
   useEffect(() => {
     //generate the special stripe secret from the backend
     const getClientSecret = async () => {
-      const response = await paymentRequest;
+      const response = await instance({
+        method: "post",
+        url: `/payment/create?total=${10}`,
+      });
       setClientSecret(response.data.clientSecret);
     };
     getClientSecret();
