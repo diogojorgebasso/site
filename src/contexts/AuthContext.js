@@ -11,22 +11,20 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   function signup(email, password, name) {
-    const user = auth.createUserWithEmailAndPassword(email, password);
-
-    const createLogDB = async (value) => {
-      //criando o usuário no database
-      await database.users.doc(value.user.uid).set({
-        email: value.user.email,
-        password: value.user.password,
-        displayName: name,
-        createdAt: database.getTime(),
-        pro: false,
+    return auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((value) => {
+        //criando o usuário no database
+        database.users.doc(value.user.uid).set({
+          email: value.user.email,
+          password: value.user.password,
+          displayName: name,
+          createdAt: database.getTime(),
+          pro: false,
+        });
+        analytics.logEvent("signUp", { method: "EmailAndPassword" });
       });
-      analytics.logEvent("signUp", { method: "EmailAndPassword" });
-    };
-    createLogDB();
-    return user;
-  }
+  } //FIXME
 
   function login(email, password) {
     analytics.logEvent("login", { method: "EmailAndPassword" });

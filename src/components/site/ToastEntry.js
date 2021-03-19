@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import logo from "./logo__header.png";
-
-export default function Toast() {
+import { Toast } from "react-bootstrap";
+export default function ToastEntry() {
   const [ShowToast, setShowToast] = useState(true);
 
   const toggleShowToast = () => setShowToast(!ShowToast);
@@ -12,8 +12,9 @@ export default function Toast() {
       <Toast
         show={ShowToast}
         onClose={toggleShowToast}
-        delay={3000}
+        delay={15000}
         autohide
+        animation={false}
         style={{
           position: "absolute",
           top: 0,
@@ -21,7 +22,6 @@ export default function Toast() {
         }}
       >
         <Toast.Header>
-          <img src={logo} className="rounded mr-2" alt="" />
           <strong className="mr-auto">Bem-vindo!</strong>
           <small>Agora</small>
         </Toast.Header>

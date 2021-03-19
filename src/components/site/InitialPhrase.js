@@ -25,14 +25,14 @@ export default function InitialPhrase() {
 
   return (
     <div>
-      <h2>
-        <q
+      <q>
+        <h2
           className="text-truncate"
-          style={{ maxWidth: "200px", maxHeight: "50px" }}
+          style={{ maxWidth: "500px", maxHeight: "50px" }}
         >
           {Frase}
-        </q>
-      </h2>
+        </h2>
+      </q>
       <cite>{Author}</cite>
     </div>
   );

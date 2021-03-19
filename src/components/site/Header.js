@@ -2,20 +2,20 @@ import React from "react";
 import logo from "./logo__header.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import "./Header.css";
 import { Navbar, Nav, Badge } from "react-bootstrap";
 
 export default function Header() {
   const { currentUser } = useAuth();
 
   return (
-    <Navbar fixed="top" bg="light" expand="sm">
+    <Navbar bg="light" expand="sm">
       <img
-        className="header__logo d-inline-block align-top"
+        className="d-inline-block align-top"
+        width="30"
+        height="30"
         src={logo}
         alt="Diogo Logo"
       />
-
       <Navbar.Brand as={Link} to="/">
         <div className="headerOption">
           Diogo Basso
