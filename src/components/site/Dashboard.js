@@ -7,14 +7,16 @@ import Header from "./Header";
 import Rocket from "./Rocket";
 import ToastEntry from "./ToastEntry";
 import { Container } from "react-bootstrap";
-
+import Image from "react-bootstrap/Image";
+import heroImage from "../../images/front_diogo.png";
 export default function Dashboard() {
   return (
     <>
       <Header />
       <Container fluid>
         <h1>Ajudando desenvolvdores a amar API’s🔥!</h1>
-
+        <h2>Você não irá se arrepender.</h2>
+        <Image src={heroImage} fluid></Image>
         <ToastEntry />
         <InitialPhrase></InitialPhrase>
         <Graph></Graph>

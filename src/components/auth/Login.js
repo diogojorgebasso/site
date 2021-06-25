@@ -7,7 +7,7 @@ import CenteredContainer from "./CenteredContainer";
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
+  const { login, logDbLogin } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -19,6 +19,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      await logDbLogin();
       history.push("/");
     } catch {
       setError("Falha no Login");

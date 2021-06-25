@@ -30,7 +30,7 @@ export default function App() {
             }}
           >
             <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
+              <Route exact path="/" component={Dashboard} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
               <Route path="/contato" component={Contato} />
               <Route path="/signup" component={Signup} />

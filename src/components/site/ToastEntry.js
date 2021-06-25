@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import logo from "./logo__header.png";
 import { Toast } from "react-bootstrap";
 export default function ToastEntry() {
   const [ShowToast, setShowToast] = useState(true);

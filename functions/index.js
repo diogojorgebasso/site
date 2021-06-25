@@ -1,7 +1,6 @@
 //Import modules
 const scrape = require("./scrape");
 const emailModule = require("./email");
-const payment = require("./payment");
 const survey = require("./survey");
 //Import firebase stuff
 const functions = require("firebase-functions");
@@ -18,18 +17,15 @@ exports.frases = functions.https.onRequest((request, response) => {
   });
 });
 
-exports.payment = functions.https.onRequest(payment); //TESTME:
-
 exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
-  const email = user.email; // The email of the user.
-  const displayName = user.displayName; // The display name of the user.
+  const email = user.email;
+  const displayName = user.displayName;
   return emailModule.sendWelcomeEmail(email, displayName);
 });
 
 exports.sendByeEmail = functions.auth.user().onDelete((user) => {
   const email = user.email;
   const displayName = user.displayName;
-
   return emailModule.sendGoodbyeEmail(email, displayName);
 });
 

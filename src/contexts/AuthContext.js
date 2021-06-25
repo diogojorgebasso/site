@@ -10,36 +10,14 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signup(email, password, name) {
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((value) => {
-        //criando o usuário no database
-        database.users.doc(value.user.uid).set({
-          email: value.user.email,
-          password: value.user.password,
-          displayName: name,
-          createdAt: database.getTime(),
-          pro: false,
-        });
-        analytics.logEvent("signUp", { method: "EmailAndPassword" });
-      });
-  } //FIXME
+  async function signup(email, password) {
+    analytics.logEvent("singup", { method: "EmailAndPassword" });
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
 
-  function login(email, password) {
+  async function login(email, password) {
     analytics.logEvent("login", { method: "EmailAndPassword" });
-    return auth
-      .signInWithEmailAndPassword(email, password)
-      .then(async (value) => {
-        //TESTME: add to array
-        database.user.doc(value.user.uid).collection("lastLogin").doc().set({
-          ip: "00000",
-          city: "Test",
-          userAgent: "Mozilla",
-          createdAt: "time now",
-        });
-      })
-      .catch((err) => console.error(err));
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
   function logout() {
@@ -59,6 +37,31 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
+  function writeDbSignup() {
+    //I need the UID
+    console.log(currentUser?.uid);
+    database.users.doc(currentUser?.uid).set({
+      email: currentUser?.email,
+      password: currentUser?.password,
+      createdAt: database.getTime(),
+      pro: false,
+    });
+    console.log("anotei");
+    analytics.logEvent("signUp", { method: "EmailAndPassword" });
+  }
+
+  function logDbLogin() {
+    console.log(currentUser.uid);
+
+    //TESTME: add to array
+    database.user.doc(currentUser.uid).collection("lastLogin").doc().set({
+      ip: "00000",
+      city: "Test",
+      userAgent: "Mozilla",
+      createdAt: "time now",
+    });
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -71,6 +74,8 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     login,
+    writeDbSignup,
+    logDbLogin,
     signup,
     logout,
     resetPassword,

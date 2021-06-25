@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
@@ -6,9 +6,8 @@ import CenteredContainer from "./CenteredContainer";
 
 export default function Signup() {
   const emailRef = useRef();
-  const nameRef = useRef();
   const passwordRef = useRef();
-  const { signup } = useAuth();
+  const { signup, writeDbSignup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -19,11 +18,7 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(
-        emailRef.current.value,
-        passwordRef.current.value,
-        nameRef.current.value
-      );
+      await signup(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch {
       setError("Problema em fazer o cadastro.");
@@ -31,18 +26,17 @@ export default function Signup() {
 
     setLoading(false);
   }
+  useEffect(() => {
+    writeDbSignup();
+  }, []);
 
   return (
     <CenteredContainer>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 className="text-center mb-4">Cadastro</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" ref={nameRef} required />
-            </Form.Group>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />

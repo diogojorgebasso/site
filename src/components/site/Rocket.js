@@ -23,13 +23,20 @@ export default function Rocket() {
       <CardDeck>
         {response?.map((section, index) => {
           return (
-            <Card border="light" key={index} style={{ width: "15rem" }}>
-              <Card.Img
-                style={{ maxHeight: "150px" }}
-                variant="top"
-                bg="light"
-                src={section.imageUrl}
-              />
+            <Card
+              border={section.featured ? "dark" : "light"}
+              key={index}
+              style={{ width: "15rem" }}
+            >
+              {section.featured ? <Card.Header>Featured!</Card.Header> : ""}
+              <picture>
+                <Card.Img
+                  variant="top"
+                  alt={section.title}
+                  src={section.imageUrl}
+                  fluid="true"
+                />
+              </picture>
               <Card.Body>
                 <Card.Title>{section.title}</Card.Title>
                 <Card.Text>{section.summary}</Card.Text>

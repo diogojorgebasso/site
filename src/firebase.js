@@ -7,13 +7,13 @@ import "firebase/auth";
 import "firebase/performance";
 
 const app = firebase.initializeApp({
-  apiKey: "AIzaSyDveLdtFIYdPbbSltuUNgC9ED2dGIfu_o8",
-  authDomain: "diogobasso-site.firebaseapp.com",
-  projectId: "diogobasso-site",
-  storageBucket: "diogobasso-site.appspot.com",
-  messagingSenderId: "990521298107",
-  appId: "1:990521298107:web:1b50af11599356ce3d2d9e",
-  measurementId: "G-5R4JHYNCCB",
+  apiKey: "AIzaSyB4mymKS6zyq7ZjG0xdgbl5db6l0rGw0pI",
+  authDomain: "sitediogo-8d874.firebaseapp.com",
+  projectId: "sitediogo-8d874",
+  storageBucket: "sitediogo-8d874.appspot.com",
+  messagingSenderId: "616746555813",
+  appId: "1:616746555813:web:430804dbb5d3beea91304c",
+  measurementId: "G-0H04GKWVX7",
 });
 // Initialize Firebase
 export const analytics = firebase.analytics(); //Done!
