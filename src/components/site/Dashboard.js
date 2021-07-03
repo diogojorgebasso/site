@@ -9,6 +9,7 @@ import ToastEntry from "./ToastEntry";
 import { Container } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import heroImage from "../../images/front_diogo.png";
+import BaseBoard from "./BaseBoard";
 export default function Dashboard() {
   return (
     <>
@@ -23,6 +24,7 @@ export default function Dashboard() {
         <Name></Name>
         <NewPhrase></NewPhrase>
         <Rocket></Rocket>
+        <BaseBoard></BaseBoard>
       </Container>
     </>
   );

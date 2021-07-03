@@ -3,6 +3,10 @@ import { Card, CardDeck, Button } from "react-bootstrap";
 import { RocketNews } from "../../services/api";
 import { useState, useEffect } from "react";
 import "./Rocket.css";
+
+function formatDate(date) {
+  return date.toLocaleDateString();
+}
 export default function Rocket() {
   const [response, SetResponse] = useState([]);
 
@@ -24,7 +28,7 @@ export default function Rocket() {
         {response?.map((section, index) => {
           return (
             <Card
-              border={section.featured ? "dark" : "light"}
+              border={section.featured ? "dark" : "info"}
               key={index}
               style={{ width: "15rem" }}
             >
@@ -35,20 +39,30 @@ export default function Rocket() {
                   alt={section.title}
                   src={section.imageUrl}
                   fluid="true"
+                  width="small"
+                  maxheight={200}
+                  className="overflow-hidden" //se não for possível escalar a img, cortá-la.
                 />
               </picture>
               <Card.Body>
                 <Card.Title>{section.title}</Card.Title>
-                <Card.Text>{section.summary}</Card.Text>
-                <Button href={section.url} variant="primary">
+                <Card.Text className="text-truncate overflow-auto">
+                  {section.summary}
+                </Card.Text>
+                <footer className="blockquote-footer">
+                  Selecionado por:{" "}
+                  <cite title="Source Title">Equipe Diogo</cite>
+                </footer>
+                <Button href={section.url} target="_blank" variant="primary">
                   {" "}
                   {/*FIXME: href not to the site, but to RocketInfo component */}
-                  Go to {section.newsSite}
+                  Continue lendo em <cite>{section.newsSite}</cite>
                 </Button>
+                <br></br>
               </Card.Body>
               <Card.Footer>
                 <small className="text-muted">
-                  Última atualização: {Date(section.publishedAt).slice(0, 24)}
+                  Última atualização: {formatDate(section.publishedAt)}
                 </small>
               </Card.Footer>
             </Card>

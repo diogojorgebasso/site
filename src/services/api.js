@@ -12,11 +12,11 @@ function nameAge(name, location) {
     }`,
   });
 }
-
+/*
 const mercadoFin = axios.create({
   baseURL: "https://mercadobitcoin.net/api/BTC/trades",
 });
-
+*/
 const newPhrase = axios.create({
   baseURL: "https://us-central1-diogobasso-site.cloudfunctions.net/frases",
   //baseURL: "http://localhost:5001/diogobasso-site/us-central1/frases", //for local env
@@ -27,14 +27,7 @@ const locationClient = axios.create({
 });
 
 const RocketNews = axios.create({
-  baseURL: "https://spaceflightnewsapi.net/api/v2/articles?_limit=4",
+  baseURL: "https://api.spaceflightnewsapi.net/v3/articles?_limit=4",
 });
 
-export {
-  fraseInicial,
-  RocketNews,
-  nameAge,
-  mercadoFin,
-  newPhrase,
-  locationClient,
-};
+export { fraseInicial, RocketNews, nameAge, newPhrase, locationClient };

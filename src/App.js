@@ -41,7 +41,7 @@ export default function App() {
               <Route path="/pagamento" component={Payment} />
               <Route path="/pagamento/Thanks" component={Thanks} />
               <Route path="/forgot-password" component={ForgotPassword} />{" "}
-              <Route path="*" component={NoMatch} />
+              <Route path="*" component={NoMatch} status={404} />
             </Switch>
           </FlagsProvider>
         </AuthProvider>

@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import { useEffect, useState } from "react";
 import { XYPlot, LineSeries } from "react-vis";
@@ -39,3 +40,4 @@ export default function Graph() {
     </div>
   );
 }
+*/
