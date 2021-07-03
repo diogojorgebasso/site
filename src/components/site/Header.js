@@ -3,12 +3,12 @@ import logo from "./logo__header.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Navbar, Nav, Badge } from "react-bootstrap";
-import app from "../../firebase";
+import { database } from "../../firebase";
 import AlertSearch from "../../contexts/AlertSearch";
 export default function Header() {
   const { currentUser } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
-  const blogPost = app.firestore().collection("blog");
+  const blogPost = database.blog();
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
